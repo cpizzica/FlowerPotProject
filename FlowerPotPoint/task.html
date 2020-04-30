@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="js/jspsych.js"></script>
+<script src="js/fabric.js"> </script>
+<script src="js/papaparse.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+  <script src="js/jspsych-canvas-keyboard-response.js"></script>
+  <script src="js/jspsych-image-keyboard-response.js"></script>
+
+      <script src="js/jspsych-html-keyboard-response.js"></script>
+
+
+    </head>
+    
+    <script>
+ var timeline = []
+ var rw = 1
+ var orientation = 0
+ var instruction_picker = 1
+ var trial_counter = 1
+ var tutorial_help_flag = 1
+ var block_score = 0
+ 
+ 
+ var script_picker = Math.floor((Math.random() * 5) + 0)
+
+   
+    XYData = $ .get(`stimuli/stimuli_${script_picker}.mturk.csv`, function(){
+   XYActual = Papa.parse(XYData.responseText, {
+	   dynamicTyping: true
+   })
+            })
+			
+		    TrainingData1 = $ .get(`training/training_1.mturk.csv`, function(){
+		   TrainingActual1 = Papa.parse(TrainingData1.responseText, {
+			   dynamicTyping: true
+		   })
+		            })
+					
+				    TrainingData2 = $ .get(`training/training_2.mturk.csv`, function(){
+				   TrainingActual2 = Papa.parse(TrainingData2.responseText, {
+					   dynamicTyping: true
+				   })
+				            })
+ 
+var instruction_trial = {
+    type: 'image-keyboard-response',
+    stimulus: '',
+    choices: ['downarrow'],
+    stimulus_height: 800,
+    stimulus_width: 800,
+    on_start: function(trial){
+    trial.stimulus = 'tutorial/' + 'tutorial' + instruction_picker + '.png'
+},
+    on_finish: function(trial){
+    instruction_picker = instruction_picker + 1
+}
+};
+var Load_trial = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>Loading Block</p>',
+    choices: ['spacebar'],
+    prompt: "<p>Press the spacebar to continue.</p>"
+};
+
+       
+    var tutorial_trial_help = {
+      type: 'canvas-keyboard-response',
+      stimulus: [],
+      stimulus_height: 800,
+      stimulus_width: 800,
+      choices: ['uparrow', 'downarrow'],
+      prompt: '<p>Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed</p>',
+      on_start: function(trial){
+        trial.stimulus = rw
+          orientation = TrainingActual1.data[rw][0]
+           },
+     on_finish: function(trial){
+			if( TrainingActual1.data[rw][1] === 0 && trial.key_press === 38){
+				block_score += 1
+			}
+            if( TrainingActual1.data[rw][1] === 1 && trial.key_press === 40){
+				block_score += 1
+				
+			}
+			
+			         rw += 1  
+     }
+   }    
+    var tutorial_trial_no_help = {
+      type: 'canvas-keyboard-response',
+      stimulus: [],
+      stimulus_height: 800,
+      stimulus_width: 800,
+      choices: ['uparrow', 'downarrow'],
+      prompt: '<p>Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed</p>',
+      on_start: function(trial){
+        trial.stimulus = rw
+          orientation = TrainingActual2.data[rw][0]
+           },
+     on_finish: function(trial){
+		 
+			if( TrainingActual2.data[rw][1] === 0 && trial.key_press === 38){
+				block_score += 1
+			}
+            if( TrainingActual2.data[rw][1] === 1 && trial.key_press === 40){
+				block_score += 1
+			}
+			         rw += 1  
+     }
+   }    
+   
+   //up = 0 down = 1
+
+        var test_trial = {
+      type: 'canvas-keyboard-response',
+      stimulus: [],
+      stimulus_height: 800,
+      stimulus_width: 800,
+      choices: ['uparrow', 'downarrow'],
+      prompt: '',
+      on_start: function(trial){
+        trial.stimulus = rw
+          orientation = XYActual.data[rw][0]
+          
+        trial.prompt = 'Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed <br> Trials Completed: ' + trial_counter 
+           },
+     on_finish: function(trial){
+         rw += 1
+         trial_counter = trial_counter + 1
+		 
+			if( XYActual.data[rw][1] === 0 && trial.key_press === 38){
+				block_score += 1
+			}
+            if( XYActual.data[rw][1] === 1 && trial.key_press === 40){
+				block_score += 1
+			}
+			         rw += 1   
+     }
+   }
+        
+    var training_help_reset_trial = {
+		type: 'html-keyboard-response',
+		stimulus: '',
+		choices: ['spacebar'],
+		prompt: '',
+        	on_start: function(trial){
+            trial.prompt = 'You got ' + block_score + ' correct!' 
+        },
+        	on_finish: function(trial){
+            block_score = 0
+            tutorial_help_flag = 0
+        }
+    };
+	
+    var training_no_help_reset_trial = {
+		type: 'html-keyboard-response',
+		stimulus: '',
+		choices: ['spacebar'],
+		prompt: '',
+        	on_start: function(trial){
+            trial.prompt = 'You got ' + block_score + ' correct! PRESS SPACEBAR TO START THE ACTUAL EXPERIMENT' 
+        },
+        	on_finish: function(trial){
+            block_score = 0
+			rw = 1
+            tutorial_help_flag = 0
+        }
+    };
+ 
+        var reset_trial = {
+    type: 'html-keyboard-response',
+    stimulus: '',
+    choices: ['spacebar'],
+    prompt: '',
+            on_start: function(trial){
+                trial.prompt = 'You got ' + block_score + ' correct! PRESS SPACEBAR TO CONTINUE TO THE NEXT 100 BLOCKS' 
+            },
+            on_finish: function(trial){
+                block_score = 0
+                tutorial_help_flag = 0
+            }
+        };
+        
+// 38 = uparrow. 40 = downarrow
+       var instruction_block = {
+           timeline: [instruction_trial],
+           repetitions: 10}
+       
+        var tutorial_block_help = {
+           timeline: [tutorial_trial_help],
+           repetitions: 5}
+       
+       var tutorial_block_no_help = {
+           timeline: [tutorial_trial_no_help],
+           repetitions: 5}
+        
+       var experiment_block = {
+        timeline: [test_trial],
+        repetitions: 5}
+       
+       var reset_block = {
+           timeline: [reset_trial],
+           repetitions: 1
+       }
+       
+       var experiment_reset_block = {
+           timeline: [experiment_block, reset_block],
+           repetitions: 5
+       }
+     
+       //timeline.push(instruction_block)
+       timeline.push(Load_trial)
+       timeline.push(tutorial_block_help)
+       timeline.push(training_help_reset_trial)
+       timeline.push(tutorial_block_no_help)
+       timeline.push(training_no_help_reset_trial)
+      //timeline.push(experiment_block)
+       //timeline.push(reset_block)
+        timeline.push(experiment_reset_block)
+        
+     jsPsych.init({
+    timeline: timeline,
+    preload: [XYData, TrainingData1, TrainingData2],
+		 on_data_update: function(data){
+			 jsPsych.data.get().addToLast({Script_Picker: script_picker})},
+
+    on_finish: function() {
+      jsPsych.data.displayData();
+    },
+    default_iti: 0
+  });     
+    </script>
+</html>
