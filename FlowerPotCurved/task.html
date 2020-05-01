@@ -127,7 +127,7 @@
              trial.prompt = 'Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed <br> Trials Completed: ' + trial_counter 
          },
 	 on_finish: function(trial){
-             rw += 1
+
              trial_counter = trial_counter + 1
 	     
 	     if( XYActual.data[rw][1] === 0 && trial.key_press === 38){
