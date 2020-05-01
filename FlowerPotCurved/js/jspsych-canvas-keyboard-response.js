@@ -215,6 +215,8 @@ End: [417.98073737 494.95184342]
 var line_bottom = new fabric.Path('M 382 495 Q 400, 405, 418, 495', { fill: '', stroke: 'black', objectCaching: false, strokeWidth: 5 });
 line_bottom.selectable = false;
 
+      var orientation = trial.data[0]
+      
   switch(orientation){
           case 0:
     canvas.add(base_top)   
