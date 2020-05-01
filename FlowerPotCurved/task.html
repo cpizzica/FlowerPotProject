@@ -19,9 +19,11 @@
      var rw = 1
      var instruction_picker = 1
      var trial_counter = 1
+     var trial_counter_block = 0
      var tutorial_help_flag = 1
      var block_score = 0
-     
+
+     const base_message = 'Press the up arrow key to select the top flowerbed and the down arrow key to select the bottom flowerbed'
      
      var script_picker = Math.floor((Math.random() * 5) + 0)
 
@@ -71,12 +73,14 @@
 	 stimulus_height: 800,
 	 stimulus_width: 800,
 	 choices: ['uparrow', 'downarrow'],
-	 prompt: '<p>Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed</p>',
+	 prompt: '<p style="font-family:Arial">' + base_message + '</p>',
 	 on_start: function(trial){
              trial.stimulus = rw
 	     trial.data = TrainingActual1.data[rw]
          },
 	 on_finish: function(trial){
+	     
+	     trial_counter_block += 1
 	     if( TrainingActual1.data[rw][1] === 0 && trial.key_press === 38){
 		 block_score += 1
 	     }
@@ -94,13 +98,14 @@
 	 stimulus_height: 800,
 	 stimulus_width: 800,
 	 choices: ['uparrow', 'downarrow'],
-	 prompt: '<p>Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed</p>',
+	 prompt: '<p style="font-family:Arial">' + base_message + '</p>',
 	 on_start: function(trial){
              trial.stimulus = rw
 	     trial.data = TrainingActual2.data[rw]
          },
 	 on_finish: function(trial){
-	     
+
+	     trial_counter_block += 1
 	     if( TrainingActual2.data[rw][1] === 0 && trial.key_press === 38){
 		 block_score += 1
 	     }
@@ -124,7 +129,7 @@
              trial.stimulus = rw
 	     trial.data = XYActual.data[rw]     
              
-             trial.prompt = 'Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed <br> Trials Completed: ' + trial_counter 
+             trial.prompt = base_message + '<br> trials Completed: ' + trial_counter 
          },
 	 on_finish: function(trial){
 
@@ -146,10 +151,11 @@
 	 choices: ['spacebar'],
 	 prompt: '',
          on_start: function(trial){
-             trial.prompt = 'You got ' + block_score + ' correct!' 
+	     trial.prompt = `<div class="container" style="height:800px;width:800px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px"><p>End of the first practice episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p style="font-size:18px">The second practice episode will be just like those in the real game, only shorter.<br>Your performance will not count towards your final score.<p>Press SPACEBAR to continue to the second practice episode</div>`
          },
          on_finish: function(trial){
              block_score = 0
+	     trial_counter_block = 0
 	     rw = 1
              tutorial_help_flag = 0
          }
@@ -161,10 +167,11 @@
 	 choices: ['spacebar'],
 	 prompt: '',
          on_start: function(trial){
-             trial.prompt = 'You got ' + block_score + ' correct! PRESS SPACEBAR TO START THE ACTUAL EXPERIMENT' 
+	     trial.prompt = `<div class="container" style="height:800px;width:800px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px"><p>End of the second practice episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p>Your training is over.<p style="font-weight:bold">Are you ready?<p>Press SPACEBAR to start the game!</div>`
          },
          on_finish: function(trial){
              block_score = 0
+	     trial_counter_block = 0
 	     rw = 1
              tutorial_help_flag = 0
          }
@@ -176,7 +183,7 @@
 	 choices: ['spacebar'],
 	 prompt: '',
          on_start: function(trial){
-             trial.prompt = 'You got ' + block_score + ' correct! PRESS SPACEBAR TO CONTINUE TO THE NEXT 100 BLOCKS' 
+	     trial.prompt = `<div class="container" style="height:800px;width:800px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px"><p>End of the episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p>Press SPACEBAR to continue to the next episode</div>`
          },
          on_finish: function(trial){
              block_score = 0
