@@ -75,6 +75,7 @@
 	 prompt: '<p>Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed</p>',
 	 on_start: function(trial){
              trial.stimulus = rw
+	     trial.data = TrainingActual1.data[rw]
              orientation = TrainingActual1.data[rw][0]
          },
 	 on_finish: function(trial){
@@ -98,6 +99,7 @@
 	 prompt: '<p>Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed</p>',
 	 on_start: function(trial){
              trial.stimulus = rw
+	     trial.data = TrainingActual2.data[rw]
              orientation = TrainingActual2.data[rw][0]
          },
 	 on_finish: function(trial){
@@ -123,6 +125,7 @@
 	 prompt: '',
 	 on_start: function(trial){
              trial.stimulus = rw
+	     trial.data = XYActual.data[rw]     
              orientation = XYActual.data[rw][0]
              
              trial.prompt = 'Press the up arrow key for the top plant bed and down arrow key for the bottom plant bed <br> Trials Completed: ' + trial_counter 
