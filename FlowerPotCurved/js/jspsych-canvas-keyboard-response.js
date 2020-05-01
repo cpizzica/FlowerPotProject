@@ -260,23 +260,7 @@ line_bottom.selectable = false;
   }
       
 
-      var rw = trial.stimulus
-
-      var seeds = [];
-
-      const n_seeds = 10;
-
-      for (i = 0; i < n_seeds; i++) {
-	  seeds.push(new fabric.Circle({
-      	      radius: 5,
-      	      fill: 'red',
-      	      left:  trial.data[4+2*i],
-      	      top: trial.data[5+2*i],
-      	      originX : 'center',
-      	      originY : 'center'
-	  }));
-      }
-
+      // if we are in an "assisted tutorial" trial, show the true location of the flower
       if (tutorial_help_flag) {
 	  var ball_helper = new fabric.Circle({
 	      radius: 7,
@@ -289,6 +273,19 @@ line_bottom.selectable = false;
 	  canvas.add(ball_helper)
       }
 
+      // create array of seed markers and add them to the canvas
+      const n_seeds = 10;
+      var seeds = [];
+      for (i = 0; i < n_seeds; i++) {
+	  seeds.push(new fabric.Circle({
+      	      radius: 5,
+      	      fill: 'red',
+      	      left:  trial.data[4+2*i],
+      	      top: trial.data[5+2*i],
+      	      originX : 'center',
+      	      originY : 'center'
+	  }));
+      }
       canvas.add(...seeds)
     
     // function to end trial when it is time
