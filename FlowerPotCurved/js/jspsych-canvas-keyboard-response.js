@@ -258,116 +258,36 @@ line_bottom.selectable = false;
   }
       
 
-var rw = trial.stimulus
+      var rw = trial.stimulus
 
-        var ball_1 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left:  trial.data[4],
-        top: trial.data[5],
-	originX : 'center',
-	originY : 'center'
-        });
-    
-        var ball_2 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[6],
-        top: trial.data[7],
-	originX : 'center',
-	originY : 'center'
-        });
-        
-        var ball_3 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[8],
-        top: trial.data[9],
-	originX : 'center',
-	originY : 'center'
-        });
-        
-        var ball_4 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[10],
-        top: trial.data[11],
-	originX : 'center',
-	originY : 'center'
-        });
-		
-        var ball_5 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[12],
-        top: trial.data[13],
-	originX : 'center',
-	originY : 'center'
-        });
-		
-        var ball_6 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[14],
-        top: trial.data[15],
-	originX : 'center',
-	originY : 'center'
-        });
-		
-        var ball_7 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[16],
-        top: trial.data[17],
-	originX : 'center',
-	originY : 'center'
-        });
-		
-        var ball_8 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[18],
-        top: trial.data[19],
-	originX : 'center',
-	originY : 'center'
-        });
-		
-        var ball_9 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[20],
-        top: trial.data[21],
-	originX : 'center',
-	originY : 'center'
-        });
-		
-        var ball_10 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: trial.data[22],
-        top: trial.data[23],
-	originX : 'center',
-	originY : 'center'
-        });
+      var seeds = [];
 
-    canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9, ball_10)  
-		
+      const n_seeds = 10;
 
-		
-		switch(tutorial_help_flag){
-		case 1:
-	        var ball_helper = new fabric.Circle({
-	        radius: 7,
-	        fill: 'orange',
-	        left:  trial.data[2],
-	        top: trial.data[3],
-		originX : 'center',
-		originY : 'center'
-	        }); 
-			canvas.add(ball_helper)
-			break;			
-		}
+      for (i = 0; i < n_seeds; i++) {
+	  seeds.push(new fabric.Circle({
+      	      radius: 5,
+      	      fill: 'red',
+      	      left:  trial.data[4+2*i],
+      	      top: trial.data[5+2*i],
+      	      originX : 'center',
+      	      originY : 'center'
+	  }));
+      }
 
+      if (tutorial_help_flag) {
+	  var ball_helper = new fabric.Circle({
+	      radius: 7,
+	      fill: 'orange',
+	      left:  trial.data[2],
+	      top: trial.data[3],
+	      originX : 'center',
+	      originY : 'center'
+	  }); 
+	  canvas.add(ball_helper)
+      }
+
+      canvas.add(...seeds)
     
     // function to end trial when it is time
     var end_trial = function() {
