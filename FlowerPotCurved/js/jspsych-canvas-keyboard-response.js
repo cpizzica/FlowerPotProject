@@ -102,6 +102,8 @@ base_top = new fabric.Line([350,350,450,350],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -113,6 +115,8 @@ horizontal_top = new fabric.Line([250,350,550,350],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'    
   });
 
 /*
@@ -124,6 +128,8 @@ vertical_top = new fabric.Line([400,350,400,250],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -135,6 +141,8 @@ point_top = new fabric.Circle({
         fill: 'black',
         left: 400,
         top: 350,
+        originX : 'center',
+        originY : 'center'
         });
 
 /*
@@ -155,6 +163,8 @@ base_bottom = new fabric.Line([350,450,450,450],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -166,6 +176,8 @@ horizontal_bottom = new fabric.Line([250,450,550,450],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -177,6 +189,8 @@ vertical_bottom = new fabric.Line([400,450,400,550],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -188,6 +202,8 @@ point_bottom = new fabric.Circle({
         fill: 'black',
         left: 400,
         top: 450,
+        originX : 'center',
+        originY : 'center'
         });
 
 /*
@@ -249,6 +265,8 @@ var rw = trial.stimulus
         fill: 'red',
         left:  XYActual.data[rw][4],
         top: XYActual.data[rw][5],
+	originX : 'center',
+	originY : 'center'
         });
     
         var ball_2 = new fabric.Circle({
@@ -256,6 +274,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][6],
         top: XYActual.data[rw][7],
+	originX : 'center',
+	originY : 'center'
         });
         
         var ball_3 = new fabric.Circle({
@@ -263,6 +283,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][8],
         top: XYActual.data[rw][9],
+	originX : 'center',
+	originY : 'center'
         });
         
         var ball_4 = new fabric.Circle({
@@ -270,6 +292,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][10],
         top: XYActual.data[rw][11],
+	originX : 'center',
+	originY : 'center'
         });
 		
         var ball_5 = new fabric.Circle({
@@ -277,6 +301,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][12],
         top: XYActual.data[rw][13],
+	originX : 'center',
+	originY : 'center'
         });
 		
         var ball_6 = new fabric.Circle({
@@ -284,6 +310,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][14],
         top: XYActual.data[rw][15],
+	originX : 'center',
+	originY : 'center'
         });
 		
         var ball_7 = new fabric.Circle({
@@ -291,6 +319,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][16],
         top: XYActual.data[rw][17],
+	originX : 'center',
+	originY : 'center'
         });
 		
         var ball_8 = new fabric.Circle({
@@ -298,6 +328,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][18],
         top: XYActual.data[rw][19],
+	originX : 'center',
+	originY : 'center'
         });
 		
         var ball_9 = new fabric.Circle({
@@ -305,6 +337,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][20],
         top: XYActual.data[rw][21],
+	originX : 'center',
+	originY : 'center'
         });
 		
         var ball_10 = new fabric.Circle({
@@ -312,6 +346,8 @@ var rw = trial.stimulus
         fill: 'red',
         left: XYActual.data[rw][22],
         top: XYActual.data[rw][23],
+	originX : 'center',
+	originY : 'center'
         });
 
     canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9, ball_10)  
@@ -321,10 +357,12 @@ var rw = trial.stimulus
 		switch(tutorial_help_flag){
 		case 1:
 	        var ball_helper = new fabric.Circle({
-	        radius: 6,
-	        fill: 'purple',
+	        radius: 7,
+	        fill: 'orange',
 	        left:  TrainingActual1.data[rw][2],
-	        top: TrainingActual1.data[rw][3],
+	            top: TrainingActual1.data[rw][3],
+		    originX : 'center',
+		    originY : 'center'
 	        }); 
 			canvas.add(ball_helper)
 			break;			
