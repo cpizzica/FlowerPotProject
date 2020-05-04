@@ -102,6 +102,8 @@ base_top = new fabric.Line([350,350,450,350],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -113,6 +115,8 @@ horizontal_top = new fabric.Line([250,350,550,350],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'    
   });
 
 /*
@@ -124,6 +128,8 @@ vertical_top = new fabric.Line([400,350,400,250],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -135,6 +141,8 @@ point_top = new fabric.Circle({
         fill: 'black',
         left: 400,
         top: 350,
+        originX : 'center',
+        originY : 'center'
         });
 
 /*
@@ -155,6 +163,8 @@ base_bottom = new fabric.Line([350,450,450,450],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -166,6 +176,8 @@ horizontal_bottom = new fabric.Line([250,450,550,450],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -177,6 +189,8 @@ vertical_bottom = new fabric.Line([400,450,400,550],{
     strokeWidth: 5,
     fill: 'black',
     stroke: 'black',
+    originX : 'center',
+    originY : 'center'
   });
 
 /*
@@ -188,6 +202,8 @@ point_bottom = new fabric.Circle({
         fill: 'black',
         left: 400,
         top: 450,
+        originX : 'center',
+        originY : 'center'
         });
 
 /*
@@ -199,6 +215,8 @@ End: [417.98073737 494.95184342]
 var line_bottom = new fabric.Path('M 382 495 Q 400, 405, 418, 495', { fill: '', stroke: 'black', objectCaching: false, strokeWidth: 5 });
 line_bottom.selectable = false;
 
+      var orientation = trial.data[0]
+      
   switch(orientation){
           case 0:
     canvas.add(base_top)   
@@ -242,94 +260,33 @@ line_bottom.selectable = false;
   }
       
 
-var rw = trial.stimulus
+      // if we are in an "assisted tutorial" trial, show the true location of the flower
+      if (tutorial_help_flag) {
+	  var ball_helper = new fabric.Circle({
+	      radius: 7,
+	      fill: 'orange',
+	      left:  trial.data[2],
+	      top: trial.data[3],
+	      originX : 'center',
+	      originY : 'center'
+	  }); 
+	  canvas.add(ball_helper)
+      }
 
-        var ball_1 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left:  XYActual.data[rw][4],
-        top: XYActual.data[rw][5],
-        });
-    
-        var ball_2 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][6],
-        top: XYActual.data[rw][7],
-        });
-        
-        var ball_3 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][8],
-        top: XYActual.data[rw][9],
-        });
-        
-        var ball_4 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][10],
-        top: XYActual.data[rw][11],
-        });
-		
-        var ball_5 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][12],
-        top: XYActual.data[rw][13],
-        });
-		
-        var ball_6 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][14],
-        top: XYActual.data[rw][15],
-        });
-		
-        var ball_7 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][16],
-        top: XYActual.data[rw][17],
-        });
-		
-        var ball_8 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][18],
-        top: XYActual.data[rw][19],
-        });
-		
-        var ball_9 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][20],
-        top: XYActual.data[rw][21],
-        });
-		
-        var ball_10 = new fabric.Circle({
-        radius: 5,
-        fill: 'red',
-        left: XYActual.data[rw][22],
-        top: XYActual.data[rw][23],
-        });
-
-    canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9, ball_10)  
-		
-
-		
-		switch(tutorial_help_flag){
-		case 1:
-	        var ball_helper = new fabric.Circle({
-	        radius: 6,
-	        fill: 'purple',
-	        left:  TrainingActual1.data[rw][2],
-	        top: TrainingActual1.data[rw][3],
-	        }); 
-			canvas.add(ball_helper)
-			break;			
-		}
-
+      // create array of seed markers and add them to the canvas
+      const n_seeds = 10;
+      var seeds = [];
+      for (i = 0; i < n_seeds; i++) {
+	  seeds.push(new fabric.Circle({
+      	      radius: 5,
+      	      fill: 'red',
+      	      left:  trial.data[4+2*i],
+      	      top: trial.data[5+2*i],
+      	      originX : 'center',
+      	      originY : 'center'
+	  }));
+      }
+      canvas.add(...seeds)
     
     // function to end trial when it is time
     var end_trial = function() {
