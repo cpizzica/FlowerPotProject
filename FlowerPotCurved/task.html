@@ -129,11 +129,12 @@
              trial.stimulus = rw
 	     trial.data = XYActual.data[rw]     
              
-             trial.prompt = base_message + '<br> trials Completed: ' + trial_counter 
+             trial.prompt = '<p style="font-family:Arial;text-align:center;width:800px">' + base_message + '<br>Screens completed: ' + `${trial_counter - 1}/500` 
          },
 	 on_finish: function(trial){
 
              trial_counter = trial_counter + 1
+	     trial_counter_block += 1
 	     
 	     if( XYActual.data[rw][1] === 0 && trial.key_press === 38){
 		 block_score += 1
