@@ -23,7 +23,7 @@
      var tutorial_help_flag = 1
      var block_score = 0
 
-     const base_message = 'Press the up arrow key to select the top flowerbed and the down arrow key to select the bottom flowerbed'
+     const base_message = 'Press the UP arrow key to select the top flowerbed and the DOWN arrow key to select the bottom flowerbed'
      
      var script_picker = Math.floor((Math.random() * 5) + 0)
 
@@ -59,11 +59,18 @@
 	     instruction_picker = instruction_picker + 1
 	 }
      };
+
+
+     function centered_message(message) {
+	 return '<div class="container" style="height:800px;width:800px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px">' + message + '<div>'
+     }
+     
      var Load_trial = {
 	 type: 'html-keyboard-response',
-	 stimulus: '<p>Loading Block</p>',
+	 //	 stimulus: '<p style="font-family:Arial;text-align:center;width:800px;font-size:20px">Loading episode&hellip;</p>',
+	 stimulus: centered_message('<p>Loading episode&hellip;</p>'),
 	 choices: ['spacebar'],
-	 prompt: "<p>Press the spacebar to continue.</p>"
+	 prompt: '<p style="font-family:Arial;text-align:center;width:800px;font-size:20px">&hellip;done. Press the SPACEBAR to continue.</p>'
      };
 
      
@@ -73,7 +80,7 @@
 	 stimulus_height: 800,
 	 stimulus_width: 800,
 	 choices: ['uparrow', 'downarrow'],
-	 prompt: '<p style="font-family:Arial">' + base_message + '</p>',
+	 prompt: '<p style="font-family:Arial;text-align:center;width:800px">' + base_message + '</p>',
 	 on_start: function(trial){
              trial.stimulus = rw
 	     trial.data = TrainingActual1.data[rw]
@@ -98,7 +105,7 @@
 	 stimulus_height: 800,
 	 stimulus_width: 800,
 	 choices: ['uparrow', 'downarrow'],
-	 prompt: '<p style="font-family:Arial">' + base_message + '</p>',
+	 prompt: '<p style="font-family:Arial;text-align:center;width:800px">' + base_message + '</p>',
 	 on_start: function(trial){
              trial.stimulus = rw
 	     trial.data = TrainingActual2.data[rw]
@@ -152,7 +159,7 @@
 	 choices: ['spacebar'],
 	 prompt: '',
          on_start: function(trial){
-	     trial.prompt = `<div class="container" style="height:800px;width:800px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px"><p>End of the first practice episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p style="font-size:18px">The second practice episode will be just like those in the real game, only shorter.<br>Your performance will not count towards your final score.<p>Press SPACEBAR to continue to the second practice episode</div>`
+	     trial.prompt = centered_message(`<p>End of the first practice episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p style="font-size:18px">The second practice episode will be just like those in the real game, only shorter.<br>Your performance will not count towards your final score.<p>Press SPACEBAR to continue to the second practice episode`)
          },
          on_finish: function(trial){
              block_score = 0
@@ -168,7 +175,7 @@
 	 choices: ['spacebar'],
 	 prompt: '',
          on_start: function(trial){
-	     trial.prompt = `<div class="container" style="height:800px;width:800px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px"><p>End of the second practice episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p>Your training is over.<p style="font-weight:bold">Are you ready?<p>Press SPACEBAR to start the game!</div>`
+	     trial.prompt = centered_message(`<p>End of the second practice episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p>Your training is over.<p style="font-weight:bold">Are you ready?<p>Press SPACEBAR to start the game!</div>`)
          },
          on_finish: function(trial){
              block_score = 0
@@ -184,10 +191,11 @@
 	 choices: ['spacebar'],
 	 prompt: '',
          on_start: function(trial){
-	     trial.prompt = `<div class="container" style="height:800px;width:800px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:normal;font-family:Arial;font-size:20px"><p>End of the episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p>Press SPACEBAR to continue to the next episode</div>`
+	     trial.prompt = centered_message(`<p>End of the episode.<br>Your score in this episode was: <strong>${100*block_score/trial_counter_block}%</strong><p>Press SPACEBAR to continue</div>`)
          },
          on_finish: function(trial){
              block_score = 0
+	     trial_counter_block = 0
              tutorial_help_flag = 0
          }
      };
