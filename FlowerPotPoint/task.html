@@ -28,19 +28,19 @@
      var script_picker = Math.floor((Math.random() * 5) + 0)
 
      
-     XYData = $ .get(`stimuli/stimuli_${script_picker}.mturk.csv`, function(){
+     XYData = $ .get(`stimuli/stimuli_${script_picker}.web.csv`, function(){
 	 XYActual = Papa.parse(XYData.responseText, {
 	     dynamicTyping: true
 	 })
      })
      
-     TrainingData1 = $ .get(`training/training_1.mturk.csv`, function(){
+     TrainingData1 = $ .get(`training/training_1.web.csv`, function(){
 	 TrainingActual1 = Papa.parse(TrainingData1.responseText, {
 	     dynamicTyping: true
 	 })
      })
      
-     TrainingData2 = $ .get(`training/training_2.mturk.csv`, function(){
+     TrainingData2 = $ .get(`training/training_2.webg.csv`, function(){
 	 TrainingActual2 = Papa.parse(TrainingData2.responseText, {
 	     dynamicTyping: true
 	 })
